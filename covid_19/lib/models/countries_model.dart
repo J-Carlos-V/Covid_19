@@ -1,6 +1,8 @@
 
 //import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 class Pais{
   List<Paises> paises = new List();
 
@@ -17,7 +19,7 @@ class Pais{
 
 class Paises {
     String country;
-   // CountryInfo countryInfo;
+    CountryInfo countryInfo;
     int cases;
     int todayCases;
     int deaths;
@@ -25,13 +27,13 @@ class Paises {
     int recovered;
     int active;
     int critical;
-    int casesPerOneMillion;
-    int deathsPerOneMillion;
+    //int casesPerOneMillion;
+    //int deathsPerOneMillion;
     int updated;
 
     Paises({
         this.country,
-       // this.countryInfo,
+        this.countryInfo,
         this.cases,
         this.todayCases,
         this.deaths,
@@ -39,27 +41,29 @@ class Paises {
         this.recovered,
         this.active,
         this.critical,
-        this.casesPerOneMillion,
-        this.deathsPerOneMillion,
+       // this.casesPerOneMillion,
+      //  this.deathsPerOneMillion,
         this.updated,
     });
 
     
 
     
-Paises.fromJSONMap(Map <String,dynamic>json){
-        country= json["country"];
-       // countryInfo= CountryInfo.fromJSONMap(json["countryInfo"]);
-        cases= json["cases"];
-        todayCases= json["todayCases"];
-        deaths= json["deaths"];
-        todayDeaths= json["todayDeaths"];
-        recovered= json["recovered"];
-        active= json["active"];
-        critical= json["critical"];
-        casesPerOneMillion= json["casesPerOneMillion"];
-        deathsPerOneMillion= json["deathsPerOneMillion"];
-        updated= json["updated"];
+ factory Paises.fromJSONMap(Map <String,dynamic>json){
+   return Paises(
+         country: json["country"] as String,
+        countryInfo: CountryInfo.fromJSONMap(json["countryInfo"]),
+        cases: json["cases"]as int,
+        todayCases: json["todayCases"]as int,
+        deaths: json["deaths"]as int,
+        todayDeaths: json["todayDeaths"]as int,
+        recovered: json["recovered"]as int,
+        active: json["active"]as int,
+        critical: json["critical"]as int,
+       // casesPerOneMillion: json["casesPerOneMillion"]as int,
+        //deathsPerOneMillion: json["deathsPerOneMillion"]as int,
+        updated: json["updated"]as int,
+   );
 }
 /*getFlag(){
  var flag= countryInfo.flag ;
@@ -79,8 +83,8 @@ class CountryInfo {
     int id;
     String iso2;
     String iso3;
-    int lat;
-    int long;
+    double lat;
+    double long;
     String flag;
 
     CountryInfo({
@@ -91,13 +95,15 @@ class CountryInfo {
         this.long,
         this.flag,
     });
-    CountryInfo.fromJSONMap(Map<String,dynamic>json){
-      id= json["id"];
-      iso2 = json["iso2"];
-      iso3 = json["iso3"];
-      lat = json["lat"];
-      long = json["long"];
-      flag = json["flag"];
+  factory  CountryInfo.fromJSONMap(Map<String,dynamic>json){
+    return CountryInfo(
+       id: json["_id"]as int,
+        iso2: json["iso2"]as String,
+        iso3: json["iso3"]as String,
+        lat: json["lat"].toDouble(),
+        long: json["long"].toDouble(),
+        flag: json["flag"]as String,
+    );
     }
 getFlag(){
       if (flag == null) {

@@ -1,8 +1,64 @@
 import 'package:covid_19/models/countries_model.dart';
+import 'package:covid_19/page/detail_page.dart';
 import 'package:covid_19/providers/provider_covid19.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
- class HomePage extends StatelessWidget {
+
+
+
+ 
+
+class HomePage extends StatelessWidget {
+
+  final ProviderCovid providerCovid = ProviderCovid();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      
+        appBar: AppBar(
+          title: Text('Contries'),
+        ),
+        body: FutureBuilder(
+          future: providerCovid.getAllcountries(),
+          builder: (BuildContext context, AsyncSnapshot<List<Paises>> snapshot){
+
+              if(snapshot.hasData){
+                List<Paises> paises = snapshot.data;
+                return ListView(
+                    children: paises
+                    .map(
+                      (Paises paises)=> ListTile(
+                        
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(paises.countryInfo.getFlag()),
+                        ),
+                        title: Text(paises.country),
+                        subtitle: Text(paises.countryInfo.iso2.toString()),
+                      /*  onTap: ()=> Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context)=>DetailsCountry(
+                              paises: paises,
+                            ),
+                          ),
+                        ),*/
+                      ),
+                    )
+                    .toList(),
+                );
+              }else{
+                return Center(child:CircularProgressIndicator());
+              }
+
+          },
+          ),
+      
+      
+    );
+  }
+}
+
+
+/* class HomePage extends StatelessWidget {
 final moviesProvider = new ProviderCovid();
 
   @override
@@ -74,3 +130,4 @@ class CardSwiper extends StatelessWidget {
     );
   }
 }
+*/
