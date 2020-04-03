@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
                           backgroundImage: NetworkImage(paises.countryInfo.getFlag()),
                         ),
                         title: Text(paises.country),
-                        subtitle: Text(paises.cases.toString()),
+                        subtitle: Text("Click Para mas Información"),
                          onTap: ()=> Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context)=>DetailsCountry(

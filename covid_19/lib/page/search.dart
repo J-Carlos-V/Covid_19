@@ -30,10 +30,10 @@ class Debouncer {
 }
  
 class UserFilterDemoState extends State<UserFilterDemo> {
-  // https://jsonplaceholder.typicode.com/users
+  
  
   final _debouncer = Debouncer(milliseconds: 500);
-  List<Paises> users = List();
+  List<Paises> pais = List();
   List<Paises> filteredUsers = List();
  
   @override
@@ -42,8 +42,8 @@ class UserFilterDemoState extends State<UserFilterDemo> {
     
     ProviderCovid().getAllcountries().then((usersFromServer) {
       setState(() {
-        users = usersFromServer;
-        filteredUsers = users;
+        pais = usersFromServer;
+        filteredUsers = pais;
       });
     });
   }
@@ -64,8 +64,8 @@ class UserFilterDemoState extends State<UserFilterDemo> {
             onChanged: (string) {
               _debouncer.run(() {
                 setState(() {
-                  filteredUsers = users
-                      .where((u) => (u.country
+                  filteredUsers = pais
+                      .where((p) => (p.country
                               .toLowerCase()
                               .contains(string.toLowerCase()) ))
                       .toList();
@@ -90,7 +90,7 @@ class UserFilterDemoState extends State<UserFilterDemo> {
                           backgroundImage: NetworkImage(filteredUsers[index].countryInfo.getFlag()),
                         ),
                         title: Text(filteredUsers[index].country),
-                        subtitle: Text(filteredUsers[index].cases.toString()),
+                        subtitle: Text("Click Para mas Información"),
                          onTap: ()=> Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context)=>DetailsCountry(
